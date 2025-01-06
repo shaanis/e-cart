@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from '../components/Header'
 import { Link } from 'react-router-dom'
+import Footer from '../components/Footer'
+import { useDispatch } from 'react-redux'
+import { fetchProducts } from '../redux/Slices/productSlice'
 const Home = () => {
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    dispatch(fetchProducts())
+  },[])
   return (
     <>
-    <Header/>
+    <Header insideHome={true}/>
     <div className='pt-20 container px-4 auto' >
       <div className='grid grid-cols-4 gap-4'>
         <div className='rounded border p-2 shadow-2xl'>
@@ -18,6 +26,7 @@ const Home = () => {
       </div>
 
     </div>
+   <Footer/>
     </>
   )
 }

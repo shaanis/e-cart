@@ -1,20 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Header = () => {
+const Header = ({insideHome}) => {
   return (
     <nav className="flex bg-violet-600 w-full text-white p-2 fixed">
       <Link className="text-2xl font-bold" to={"/"}>
         <i className="fa-solid fa-truck-fast me-3"></i>E Cart
       </Link>
       <ul className="flex-1 text-right">
-        <li className="list-none inline-block px-5">
+        { insideHome && <li className="list-none inline-block px-5">
           <input
             className="w-48 rounded p-2"
             type="text"
             placeholder="Search Product here"
           />{" "}
-        </li>
+        </li>}
 
         <li className="list-none inline-block px-5">
           <Link to={'/wishlist'}>
