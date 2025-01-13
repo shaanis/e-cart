@@ -13,13 +13,24 @@ const Home = () => {
   const [currentPage,setCurrentPage] = useState(1)
   const productPerPage = 8
   const totalpages = Math.ceil(allProducts?.length/productPerPage) 
-  const currentPageLastIndex = currentPage* productPerPage
-  const currentPageFirstIndex = currentPageLastIndex-productPerPage
-  const visibleProduct = allProducts?.slice(currentPage)
+  const currentPageProductLastIndex = currentPage* productPerPage
+  const currentPageProductFirstIndex = currentPageProductLastIndex-productPerPage
+  const visibleProduct = allProducts?.slice(currentPageProductFirstIndex,currentPageProductLastIndex)
 
   useEffect(() => {
     dispatch(fetchProducts());
   }, []);
+
+  const navigateNextPage =()=>{
+    if(currentPage != totalpages){
+      setCurrentPage(currentPage+1)
+    }
+  }
+  const navigateprevPage =()=>{
+    if(currentPage != 1){
+      setCurrentPage(currentPage-1)
+    }
+  }
   return (
     <>
       <Header insideHome={true} />
@@ -38,7 +49,7 @@ const Home = () => {
           <>
             <div className="grid grid-cols-4 gap-4">
               {allProducts?.length > 0 ? (
-                allProducts?.map((product) => (
+                visibleProduct?.map((product) => (
                   <div
                     key={product.id}
                     className="rounded border p-2 shadow-2xl"
@@ -65,6 +76,11 @@ const Home = () => {
                 </div>
               )}
             </div>
+          <div className="text-2xl text-center mt-20">
+              <span onClick={navigateprevPage} className="cursor-pointer"><i className="fa-solid fa-backward me-5"></i></span>
+              <span >{currentPage} of {totalpages}</span>
+              <span onClick={navigateNextPage} className="cursor-pointer"><i className="fa-solid fa-forward ms-5"></i></span>
+          </div>
           </>
         )}
       </div>
